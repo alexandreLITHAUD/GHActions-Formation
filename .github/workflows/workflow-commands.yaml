@@ -8,10 +8,21 @@ jobs:
       - name: Setting an error message
         run: echo "::error::Missing semicolon" # ::error:: string template to print directly to the runner !!
       - name: Setting an error message with params
-        run: echo "::error title=Error Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value, param2=value2::Message Here
+        run: echo "::error title=Error Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value,param2=value2::Message Here
       - name: Setting a debug message with params
-        run: echo "::debug title=Debug Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value, param2=value2::Message Here
+        run: echo "::debug title=Debug Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value,param2=value2::Message Here
       - name: Setting a warning message with params
-        run: echo "::warning title=Warning Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value, param2=value2::Message Here
+        run: echo "::warning title=Warning Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value,param2=value2::Message Here
       - name: Setting a notice message with params
-        run: echo "::notice title=Notice Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value, param2=value2::Message Here
+        run: echo "::notice title=Notice Title,file=app.js,line=2,endLine=3,col=5,endColum=7::Missing semicolon again" # ::error param=value,param2=value2::Message Here
+      - name: Group of logs
+        run: |
+          echo "::group::My Group Title"
+          echo "If all goes well"
+          echo "It would be inside a group"
+          echo "Perchance."
+          echo "::endgroup::"
+      - name: Masking a value
+        run: "::add-mask:: Secret String"
+      - name: Echo secret string
+        run: echo "Secret String"
