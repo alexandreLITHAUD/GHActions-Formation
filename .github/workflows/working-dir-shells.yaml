@@ -3,6 +3,7 @@ on: [push]
 defaults:
   run:
     shell: bash
+    # working-directory: /
 
 jobs:
   display-wd-info:
