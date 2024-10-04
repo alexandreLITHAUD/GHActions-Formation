@@ -1,5 +1,8 @@
 name: Working Dir & Shells
 on: [push]
+defaults:
+  run:
+    shell: bash
 
 jobs:
   display-wd-info:
@@ -12,3 +15,8 @@ jobs:
           echo $GITHUB_SHA
           echo $GITHUB_REPOSITORY
           echo $GITHUB_WORKSPACE
+      - name: Python Shell
+        shell: python
+        run: |
+          import platform
+          print(platform.processor())
