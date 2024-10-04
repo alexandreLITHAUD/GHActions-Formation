@@ -1,5 +1,14 @@
 name: Repo Events
-on:  [push, pull_request, issues]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  issues:
+    types:
+      - opened
 
 jobs:
   checkout-test:
