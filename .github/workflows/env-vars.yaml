@@ -20,6 +20,15 @@ jobs:
         run: |
           echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV" 
           echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
+
+      - name: multiline env
+        run: |
+          DELIMITER=§§
+          echo "RANDOM_JOKE<<$DELIMITER" >> "$GITHUB_ENV"
+          echo "Here is a joke:" >> "$GITHUB_ENV"
+          curl -s https://icanhazdadjoke.com/ >> "$GITHUB_ENV"
+          echo "" >> "$GITHUB_ENV" 
+          echo "$DELIMITER" >> "$GITHUB_ENV"
       
       - name: LOG Custom ENV Vars
         env:
@@ -33,3 +42,4 @@ jobs:
           echo '${{ env.WF_LEVEL_ENV }}'
           echo $WF_LEVEL_ENV
           echo $NEW_ENV_VAR
+          echo $RANDOM_JOKE
