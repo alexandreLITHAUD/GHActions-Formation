@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(fromJson('["issues", "pull_request"]'), github.event_name)
     steps:
-      - run: echo "Hello, world! PR OR "issues"
+      - run: echo "Hello, world! PR OR issues"
       - name: Run only if issue as bug label
         if: contains(github.event.issue.labels.*.name, 'bug')
         run: echo ${{ join(github.event.issue.labels.*.name, ', ') }}
