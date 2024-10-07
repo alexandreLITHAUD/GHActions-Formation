@@ -10,7 +10,7 @@ jobs:
       - run: echo "Hello, world! PR OR "issues"
       - name: Run only if issue as bug label
         if: contains(github.event.issue.labels.*.name, 'bug')
-        run: echo "${{ join(github.event.issue.labels.*.name, ', ')}}"
+        run: echo ${{ join(github.event.issue.labels.*.name, ', ') }}
   test:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' # Only run on push !
