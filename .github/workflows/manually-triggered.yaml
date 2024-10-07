@@ -1,9 +1,32 @@
 name: Manually Triggered
 on: 
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'Who should I say hi to?'
+        type: string
+        required: true
+        default: "Mona the Octocat"
+      options:
+        description: 'Pick an option'
+        type: choice
+        required: false
+        default: "hello"
+        options:
+          - hello
+          - goodbye
+      # environement:
+      #   description: 'Pick an environment'
+      #   type: choice
+      #   required: false
+      #   default: "dev"
+      #   options:
+      #     - dev
+      #     - prod
 
 jobs:
   log-info:
     runs-on: ubuntu-latest
     steps:
       - run: echo "ref= $GITHUB_REF"
+      - run: echo "${{ inputs.options }} ${{ inputs.name }}"
