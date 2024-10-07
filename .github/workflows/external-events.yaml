@@ -1,0 +1,9 @@
+name: External Events
+on:
+  repository_dispatch:
+
+jobs:
+  external-events:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello, world!"
