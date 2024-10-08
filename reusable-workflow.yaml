@@ -1,0 +1,29 @@
+name: Reusable Workflow
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        default: "Mona the Octocat"
+        type: string
+    secrets:
+      access-token:
+        required: true
+        description: "Personal Access Token"
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: ls -a
+  log-context-and-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log context
+        run: echo '${{ toJSON(github) }}'
+      - name: Display name input
+        run: echo '${{ inputs.name }}'
+      - name: Display access-token secret
+        run: echo '${{ secrets.access-token }}'

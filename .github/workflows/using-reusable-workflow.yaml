@@ -1,0 +1,17 @@
+name: using reusable workflow
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        required: true
+        default: "Mona the Octocat"
+        type: string
+
+jobs:
+  calling-reusable-workflow:
+    uses: ./reusable-workflow.yaml@main # PATH HERE
+    # DONT NEED RUN-ONS AS THE CALLED WORKFLOW DEFINES IT
+    with:
+      name: ${{ inputs.name }}
+    secrets:
+      access-token: ${{ secrets.ACCESS_TOKEN }}
