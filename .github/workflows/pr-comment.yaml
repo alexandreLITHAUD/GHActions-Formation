@@ -1,16 +1,19 @@
-name: PR Comment
+name: Issue Comment
 on: 
-  pull_request_target:
+  issues:
     types:
       - opened
 
 jobs:
   pr-comment:
+    permissions: # job level
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - name: Create comment
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.rest.issues.createComment({
               owner: context.repo.owner,
