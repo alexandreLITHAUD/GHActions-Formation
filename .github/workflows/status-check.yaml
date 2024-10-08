@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step 1
-        run: sleep 20
+        timeout-minutes: 1
+        run: sleep 70
       - name: Step 2
         id: step2
         continue-on-error: true
