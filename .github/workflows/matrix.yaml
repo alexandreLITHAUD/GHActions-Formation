@@ -4,6 +4,7 @@ on: [push]
 jobs:
   node-matrix:
     
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04]
