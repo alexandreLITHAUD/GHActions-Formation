@@ -1,0 +1,20 @@
+name: Docker containers Test
+on: [workflow_dispatch]
+
+jobs:
+  docker-with-containers:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:3.20
+    steps:
+      - name: Os Name
+        run: |
+          echo "Os Name: $(uname -a)"
+      - name: Create a file
+        run: |
+          touch test.txt
+          echo "Hello World" > test.txt
+      - name: See file in another container
+        uses: docker://ubuntu:noble
+        with:
+          args: cat test.txt
