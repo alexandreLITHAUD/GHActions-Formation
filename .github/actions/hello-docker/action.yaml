@@ -1,0 +1,20 @@
+name: Hello World
+author: Alexandre Lithaud
+description: Hello World Docker
+inputs:
+  who-to-greet:
+    description: 'Person to greet'
+    required: true
+    default: "Docker the Whale"
+outputs:
+  time:
+    description: The time
+    required: false
+
+runs:
+  using: "docker"
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
+  post-entrypoint: "/app/cleanup.sh"
+  post-if: runner.os == linux
