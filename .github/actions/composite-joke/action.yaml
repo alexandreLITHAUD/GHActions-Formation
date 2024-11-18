@@ -1,0 +1,42 @@
+name: Random Joke
+author: Alexandre Lithaud
+description: "Generate a random Joke and print it"
+inputs:
+  who-to-greet:
+    description: 'Person to greet'
+    required: false
+    default: "Docker the Whale"
+  upload_joke:
+    description: 'Upload Joke as Artifact?'
+    required: false
+    default: true
+outputs:
+  out-joke:
+    description: 'The generated Joke'
+    value: ${{ steps.joke.outputs.random_joke }}
+
+runs:
+  using: composite
+  steps:
+    - run: echo "Hello ${{ inputs.who-to-greet }} Here is the joke \n"
+    - name: Generate Joke
+      shell: bash
+      id: joke
+      run: |
+        DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "random_joke<<$DELIMITER" >> $GITHUB_OUTPUTS
+        curl -s https://icanhazdadjoke.com/ >> $GITHUB_OUTPUTS
+        echo "" >> $GITHUB_OUTPUTS
+        echo "$DELIMITER" >> $GITHUB_OUTPUTS
+    - name: Generate Joke File
+      shell: bash
+      run: echo "${{ steps.joke.outputs.random_joke }}" > joke.txt
+      if: inputs.upload_joke
+    - name: Upload Joke
+      uses: actions/upload-artifact@v4
+      if: inputs.upload_joke
+      with:
+        name: Joke
+        path: joke.txt
+    - name: Print Joke
+      run: echo "${{ inputs.who-to-greet && format('{0}{1} {2}', '@', inputs.who-to-greet, steps.joke.outputs.random_joke) || steps.joke.outputs.random_joke }}"

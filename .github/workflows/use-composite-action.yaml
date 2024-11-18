@@ -1,0 +1,23 @@
+name: Use composite action
+on:
+  workflow_dispatch:
+    inputs:
+      who-to-greet:
+        description: 'Person to greet'
+        required: false
+      upload_joke:
+        description: 'Upload Joke as Artifact?'
+        required: false
+
+jobs:
+  simple-composite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/composite-joke
+        id: joke
+        with:
+          who-to-greet: ${{ inputs.who-to-greet }}
+          upload_joke: ${{ inputs.upload_joke }}
+      - name: Display Generated Joke from outside composite
+        run: echo "${{ steps.joke.outputs.out-joke }}"
