@@ -9,7 +9,6 @@ inputs:
 outputs:
   time:
     description: The time
-    required: false
 
 runs:
   using: "docker"
