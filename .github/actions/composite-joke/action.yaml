@@ -25,10 +25,10 @@ runs:
       id: joke
       run: |
         DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-        echo "random_joke<<$DELIMITER" >> $GITHUB_OUTPUTS
-        curl -s https://icanhazdadjoke.com/ >> $GITHUB_OUTPUTS
-        echo "" >> $GITHUB_OUTPUTS
-        echo "$DELIMITER" >> $GITHUB_OUTPUTS
+        echo "random_joke<<$DELIMITER" >> "$GITHUB_OUTPUT"
+        curl -s https://icanhazdadjoke.com/ >> "$GITHUB_OUTPUT"
+        echo "" >> "$GITHUB_OUTPUT"
+        echo "$DELIMITER" >> "$GITHUB_OUTPUT"
     - name: Generate Joke File
       shell: bash
       run: echo "${{ steps.joke.outputs.random_joke }}" > joke.txt
