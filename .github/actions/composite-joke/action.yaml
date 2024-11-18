@@ -19,6 +19,7 @@ runs:
   using: composite
   steps:
     - run: echo "Hello ${{ inputs.who-to-greet }} Here is the joke \n"
+      shell: bash
     - name: Generate Joke
       shell: bash
       id: joke
@@ -39,4 +40,5 @@ runs:
         name: Joke
         path: joke.txt
     - name: Print Joke
+      shell: bash
       run: echo "${{ inputs.who-to-greet && format('{0}{1} {2}', '@', inputs.who-to-greet, steps.joke.outputs.random_joke) || steps.joke.outputs.random_joke }}"
