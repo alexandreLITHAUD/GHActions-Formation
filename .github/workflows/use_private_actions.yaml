@@ -1,0 +1,17 @@
+name: Use private actions
+on:
+  workflow_dispatch:
+    inputs:
+      who-to-greet:
+        description: 'Person to greet'
+        required: true
+        default: "Mona the Octocat"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/hello-docker
+        with:
+          who-to-greet: ${{ inputs.who-to-greet }}
